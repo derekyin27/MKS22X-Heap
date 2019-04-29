@@ -5,7 +5,11 @@ public class MyHeap{
     data[f] = start;
   }
   private static void pushDown(int[]data,int size,int index){
-
+    if (size==0) return;
+    else if (data[index] < data[index+2]){
+      swap(data, index, index+2);
+      pushDown(data, size-1, index++);
+    }
   }
   private static void pushUp(int[]data,int index){
 
