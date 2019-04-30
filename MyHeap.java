@@ -12,6 +12,14 @@ public class MyHeap{
     }
   }
   private static void pushUp(int[]data,int index){
+    while (index > 0){
+      int parent = (index-1)/2;
+      if (data[parent] < data[index]){
+        swap(data, parent, index);
+        index = parent;
+      }
+      else return;
+    }
 
   }
   public static void heapify(int[] data){
