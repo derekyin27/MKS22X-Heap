@@ -1,44 +1,36 @@
+import java.util.*;
 public class MyHeap{
   private static void swap(int[] data, int s, int f){
     int start = data[s];
     data[s] = data[f];
     data[f] = start;
   }
-  private static void pushDown(int[]data,int size,int index){
-    while (true){
-      int left = index * 2 + 1;
-      int right = left + 1;
-      if (right < size){
-        if (data[left] > data[right] && data[left] > data[index]){
-          swap(data, index, left);
-          index = left;
-        }
-        else return;
-
-        else if (data[right] > data[index]){
-          swap(data, index, right);
-          index = right;
-        }
-        else return;
+  private static void pushDown(int[]data,int size,int  > ndex){
+    if (size > 2 * index + 2 && (data[2 * index + 1] > data[index] || data[2 * index + 2] > data[index])) {
+      if (data[2 * index + 1] <= data[2 * index + 2]) {
+        swap(data, index, 2 * index + 2);
+        pushDown(data, size, 2 * index + 2);
       }
-      else if (right == size){
-        if (data[left]>data[index]){
-          swap(data, index, left);
-          index = left;
-        }
+      else {
+        swap(data, index, 2 * index + 1);
+        pushDown(data, size, 2 * index + 1);
       }
-      return;
+    }
+    else if (2 * index + 1 == size - 1 && size % 2 == 0) {
+      if (data[index] < data[2 * index + 1]) {
+        swap(data, index, 2 * index + 1);
+      }
     }
   }
   private static void pushUp(int[]data,int index){
-    while (index > 0){
-      int parent = (index-1)/2;
-      if (data[parent] < data[index]){
-        swap(data, parent, index);
-        index = parent;
+    if (data[(index - 1) / 2] >= data[index]){
+        return;
       }
-      else return;
-    }
+      else if (index == 0) {
+        return;
+      }
+      swap(data, index, (index - 1) / 2);
+      pushUp(data, (index - 1) / 2);
 
   }
   public static void heapify(int[] data){
@@ -53,7 +45,6 @@ public class MyHeap{
             pushDown(data, i ,0);
     }
   }
-public static void main(String[] args) {
   public static void main(String[]args){
   System.out.println("Size\t\tMax Value\tquick/builtin ratio ");
   int[]MAX_LIST = {1000000000,500,10};
@@ -87,6 +78,5 @@ public static void main(String[] args) {
     }
     System.out.println();
   }
-}
 }
 }
